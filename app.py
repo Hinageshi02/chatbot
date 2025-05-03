@@ -1,10 +1,22 @@
-from flask import Flask
+from flask import Flask, request, jsonify
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)  # Allow cross-origin requests from your website
 
 @app.route('/')
 def home():
-    return 'Hello, World!'
+    return 'Chatbot backend is up!'
 
-if __name__ == "__main__":
-    app.run()
+@app.route('/chat', methods=['POST'])
+def chat():
+    data = request.get_json()
+    user_message = data.get('message', '')
+
+    # Dummy reply for now
+    reply = f"You asked: {user_message}. I'm here to help with dental questions!"
+
+    return jsonify({'response': reply})
+
+if __name__ == '__main__':
+    app.run(debug=True)
