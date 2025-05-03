@@ -1,8 +1,10 @@
 services:
   - type: web
-    name: dental-chatbot
+    name: chatbot
     env: python
     plan: free
-    buildCommand: ""
-    startCommand: gunicorn chatbot:app
-    autoDeploy: true
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "gunicorn chatbot:app"
+    routes:
+      - type: http
+        port: 10000
